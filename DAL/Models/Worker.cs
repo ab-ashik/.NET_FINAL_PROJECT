@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Workers
+    public class Worker
     {
         [Key]
         public string Uname { get; set; }

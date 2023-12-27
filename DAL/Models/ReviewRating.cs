@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class ReviewsRatings
+    public class ReviewRating
     {
 
     }
