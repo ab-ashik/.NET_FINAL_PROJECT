@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +11,28 @@ namespace DAL.Models
     public class Worker
     {
         [Key]
-        public string Uname { get; set; }
+        public int WorkerID { get; set; }
+
+        [ForeignKey("User")]
+        public int UserID { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string Name { get; set; }
+        public string Specialization { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string Password { get; set; }
+        public bool IsAvailable { get; set; }
+
+        [Required]
+        public List<string> AvailableDays { get; set; }
+
+        [Required]
+        public DateTime AvailableStartTime { get; set;}
+
+        [Required]
+        public DateTime AvailableEndTime { get; set;}
+
+        //Virtual Properties
+        public virtual User User { get; set; }
     }
 }

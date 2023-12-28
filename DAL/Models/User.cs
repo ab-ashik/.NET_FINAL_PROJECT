@@ -7,20 +7,29 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Customer
+    public class User
     {
         [Key]
-        public String Uname { get; set; }
+        public int UserID { get; set; }
 
         [Required]
         [StringLength(20)]
-        public String Name { get; set; }
+        public string UserName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(20)]
         public String Password { get; set; }
 
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
 
+        [Required]
+        public string UserType { get; set; }
 
     }
 }

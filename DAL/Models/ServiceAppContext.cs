@@ -9,7 +9,7 @@ namespace DAL.Models
 {
     internal class ServiceAppContext: DbContext
     {
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public DbSet<Worker> Workers { get; set; }
 
@@ -21,7 +21,11 @@ namespace DAL.Models
 
         public DbSet<Payment> Payments { get; set; }
 
-        public DbSet<ReviewRating> ReviewsRatings { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<DiscountCupon> DiscountCupons { get; set; }
+
+        public DbSet<ServiceHistory> ServicesHistories { get; set; }
 
 
     }

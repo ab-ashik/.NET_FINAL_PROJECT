@@ -52,11 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Booking.cs" />
-    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DiscountCupon.cs" />
+    <Compile Include="Models\ServiceHistory.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Payment.cs" />
-    <Compile Include="Models\ReviewRating.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceAppContext.cs" />
     <Compile Include="Models\Worker.cs" />
