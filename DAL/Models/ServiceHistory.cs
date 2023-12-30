@@ -37,7 +37,7 @@ namespace DAL.Models
 
         public DateTime CompletionDate { get; set; }
 
-        public DateTime HistoryDate { get; set; }
+      //  public DateTime HistoryDate { get; set; }
 
 
         //Virtual Properties

@@ -28,7 +28,7 @@ namespace DAL.Models
         [Required]
         public DateTime DueDate { get; set; }
 
-        public DateTime CompletionDate { get; set; }
+       // public DateTime CompletionDate { get; set; }
 
         public string Status { get; set; }
 
