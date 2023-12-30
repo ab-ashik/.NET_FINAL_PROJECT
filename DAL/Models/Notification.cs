@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
@@ -22,10 +17,10 @@ namespace DAL.Models
 
         public string NotificationType { get; set; }
 
-      //  public bool IsRead { get; set; }
+        //  public bool IsRead { get; set; }
 
         //Virtual Properties
-        public virtual User User { get; set; } 
+        public virtual User User { get; set; }
 
     }
 }
