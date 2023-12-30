@@ -31,14 +31,6 @@ namespace DAL.Models
         [Required]
         public string PriceRange { get; set; }
 
-        [ForeignKey("Worker")]
-        public int WorkerID { get; set; }
-
-        //Virtual Properties
-        public virtual Worker Worker { get; set; }
-
-
-
 
     }
 }

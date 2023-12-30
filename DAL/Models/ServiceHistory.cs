@@ -31,13 +31,13 @@ namespace DAL.Models
         [ForeignKey("Review")]
         public int ReviewID { get; set; }
 
-        public DateTime BookingDate { get; set; }
+      public DateTime BookingDate { get; set; }
 
         public DateTime DueDate { get; set; }
 
         public DateTime CompletionDate { get; set; }
 
-        public DateTime HistoryDate { get; set; }
+       // public DateTime HistoryDate { get; set; }
 
 
         //Virtual Properties

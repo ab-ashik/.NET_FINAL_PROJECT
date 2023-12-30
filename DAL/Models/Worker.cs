@@ -26,13 +26,14 @@ namespace DAL.Models
         [Required]
         public List<string> AvailableDays { get; set; }
 
-        [Required]
-        public DateTime AvailableStartTime { get; set;}
+       [Required]
+       public string AvailableStartTime { get; set;}
 
-        [Required]
-        public DateTime AvailableEndTime { get; set;}
+       [Required]
+       public string AvailableEndTime { get; set;}
 
         //Virtual Properties
+       // [ForeignKey("User")]
         public virtual User User { get; set; }
     }
 }

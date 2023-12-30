@@ -22,7 +22,7 @@ namespace DAL.Models
 
         public string NotificationType { get; set; }
 
-        public bool IsRead { get; set; }
+       // public bool IsRead { get; set; }
 
         //Virtual Properties
         public virtual User User { get; set; } 
