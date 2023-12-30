@@ -10,11 +10,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DAL</RootNamespace>
     <AssemblyName>DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Interfaces\Class1.cs" />
+    <Compile Include="Interfaces\IRepo.cs" />
     <Compile Include="Migrations\202312300833350_initDB.cs" />
     <Compile Include="Migrations\202312300833350_initDB.designer.cs">
       <DependentUpon>202312300833350_initDB.cs</DependentUpon>
@@ -69,7 +70,16 @@
     <Compile Include="Models\ServiceAppContext.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repos\Class1.cs" />
+    <Compile Include="Repos\BookingRepo.cs" />
+    <Compile Include="Repos\DiscountCuponRepo.cs" />
+    <Compile Include="Repos\NotificationRepo.cs" />
+    <Compile Include="Repos\PaymentRepo.cs" />
+    <Compile Include="Repos\Repo.cs" />
+    <Compile Include="Repos\ReviewRepo.cs" />
+    <Compile Include="Repos\ServiceHistoryRepo.cs" />
+    <Compile Include="Repos\ServiceRepo.cs" />
+    <Compile Include="Repos\UserRepo.cs" />
+    <Compile Include="Repos\WorkerRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EF\" />
