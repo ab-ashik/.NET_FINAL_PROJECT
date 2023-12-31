@@ -23,8 +23,5 @@ namespace BLL.DTOs
 
         [Required]
         public string PhoneNumber { get; set; }
-
-        [Required]
-        public string UserType { get; set; }
     }
 }

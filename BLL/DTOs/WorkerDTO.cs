@@ -11,12 +11,27 @@ namespace BLL.DTOs
 {
     public class WorkerDTO
     {
+        [Key]
         public int WorkerID { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        [StringLength(20)]
+        public string UserName { get; set; }
 
         [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public String Password { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(20)]
         public string Specialization { get; set; }
 
         [Required]
@@ -30,5 +45,6 @@ namespace BLL.DTOs
 
         [Required]
         public string AvailableEndTime { get; set; }
+    
     }
 }

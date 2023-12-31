@@ -1,5 +1,4 @@
-﻿using BLL;
-using BLL.Services;
+﻿using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +8,16 @@ using System.Web.Http;
 
 namespace APL.Controllers
 {
-    public class WorkerController : ApiController
+    public class UserController : ApiController
     {
         [HttpGet]
-        [Route("api/workers")]
-        public HttpResponseMessage Workers()
+        [Route("api/users")]
+        public HttpResponseMessage Users()
         {
             try
             {
-                var data = WorkerService.Get();
+                var data = UserService.Get();
+
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -26,13 +26,13 @@ namespace APL.Controllers
             }
         }
         [HttpGet]
-        [Route("api/workers/{id}")]
+        [Route("api/users/{id}")]
         //dfkghdlfhglhdf
-        public HttpResponseMessage Workers(int id)
+        public HttpResponseMessage Users(int id)
         {
             try
             {
-                var data = WorkerService.Get(id);
+                var data = UserService.Get(id);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -40,7 +40,5 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
         }
-
-
     }
 }

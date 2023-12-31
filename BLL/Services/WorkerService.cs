@@ -12,8 +12,6 @@ namespace BLL.Services
 {
     public class WorkerService
     {
-        public class PostService
-        {
             public static List<WorkerDTO> Get()
             {
                 var data = DataAccessFactory.WorkerData().Read();
@@ -38,6 +36,8 @@ namespace BLL.Services
                 return mapped;
 
             }
-        }
+
+
+
     }
 }

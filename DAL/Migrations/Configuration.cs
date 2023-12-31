@@ -25,7 +25,7 @@
                     Email = Guid.NewGuid().ToString().Substring(0, 8) + "@gmail.com",
                     Password = Guid.NewGuid().ToString().Substring(0, 8),
                     PhoneNumber = "+88017" + random.Next().ToString(),
-                    UserType = userType
+                    //UserType = userType
                 });
             }
 
@@ -60,7 +60,11 @@
                 context.Workers.AddOrUpdate(new Models.Worker
                 {
                     WorkerID = i + 1,
-                    UserID = i + 1,
+                    // UserID = i + 1,
+                    UserName = Guid.NewGuid().ToString().Substring(0, 15),
+                    Email = Guid.NewGuid().ToString().Substring(0, 8) + "@gmail.com",
+                    Password = Guid.NewGuid().ToString().Substring(0, 8),
+                    PhoneNumber = "+88017" + random.Next().ToString(),
                     Specialization = "Electrician",
                     IsAvailable = true,
                     AvailableDays = new List<string>(new string[] { "Sunday", "Tuesday", "Friday" }),

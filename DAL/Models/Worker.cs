@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,8 +10,21 @@ namespace DAL.Models
         [Key]
         public int WorkerID { get; set; }
 
-        [ForeignKey("User")]
-        public int UserID { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string UserName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public String Password { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
 
         [Required]
         [StringLength(20)]
@@ -28,7 +42,5 @@ namespace DAL.Models
         [Required]
         public string AvailableEndTime { get; set; }
 
-        //Virtual Properties
-        public virtual User User { get; set; }
     }
 }

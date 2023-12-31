@@ -24,8 +24,5 @@ namespace DAL.Models
         [Phone]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        public string UserType { get; set; }
-
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class UserRepo : Repo, IRepo<User, string, User>
+    internal class UserRepo : Repo, IRepo<User, int, User>
     {
         public User Create(User obj)
         {
@@ -17,7 +17,7 @@ namespace DAL.Repos
             return null;
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             var ex = Read(id);
             db.Users.Remove(ex); 
@@ -30,14 +30,14 @@ namespace DAL.Repos
             return db.Users.ToList();
         }
 
-        public User Read(string id)
+        public User Read(int id)
         {
             return db.Users.Find(id);
         }
 
         public User Update(User obj)
         {
-            var ex = Read(obj.UserName);
+            var ex = Read(obj.UserID);
             db.Entry(ex).CurrentValues.SetValues(obj);
             if(db.SaveChanges()>0 ) return obj;
             return null;
