@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
@@ -31,11 +25,11 @@ namespace DAL.Models
         [Required]
         public string PriceRange { get; set; }
 
-      //  [ForeignKey("Worker")]
-    //    public int WorkerID { get; set; }
+        //  [ForeignKey("Worker")]
+        //    public int WorkerID { get; set; }
 
         //Virtual Properties
-      //  public virtual Worker Worker { get; set; }
+        //  public virtual Worker Worker { get; set; }
 
 
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
@@ -27,10 +23,10 @@ namespace DAL.Models
         public List<string> AvailableDays { get; set; }
 
         [Required]
-        public string AvailableStartTime { get; set;}
+        public string AvailableStartTime { get; set; }
 
         [Required]
-        public string AvailableEndTime { get; set;}
+        public string AvailableEndTime { get; set; }
 
         //Virtual Properties
         public virtual User User { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace BLL.Services
+﻿namespace BLL.DTOs
 {
     internal class Class1
     {
