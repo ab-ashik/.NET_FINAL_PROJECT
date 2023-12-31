@@ -13,28 +13,47 @@
 
         protected override void Seed(DAL.Models.ServiceAppContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
-
-
-
-
             Random random = new Random(8);
             for (int i = 0; i < 5; i++)
             {
+                string userType = (random.Next(2) == 0) ? "Customer" : "Worker";
+
                 context.Users.AddOrUpdate(new Models.User
                 {
-
                     UserID = i + 1,
                     UserName = Guid.NewGuid().ToString().Substring(0, 15),
                     Email = Guid.NewGuid().ToString().Substring(0, 8) + "@gmail.com",
                     Password = Guid.NewGuid().ToString().Substring(0, 8),
                     PhoneNumber = "+88017" + random.Next().ToString(),
-                    UserType = "Worker"
+                    UserType = userType
                 });
             }
+
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Models.User user = context.Users.FirstOrDefault(u => u.UserID == i + 1);
+
+            //    if (user != null)
+            //    {
+            //        context.Workers.AddOrUpdate(new Models.Worker
+            //        {
+            //            WorkerID = i + 1,
+            //            UserID = user.UserID,
+            //            Specialization = "Electrician",
+            //            IsAvailable = true,
+            //            AvailableDays = new List<string>(new string[] { "Sunday", "Tuesday", "Friday" }),
+            //            AvailableStartTime = "10 AM",
+            //            AvailableEndTime = "4 PM",
+            //        });
+            //    }
+            //    else
+            //    {
+
+            //        // Handle the case where the corresponding user is not found
+            //        // This can be logging, throwing an exception, or other appropriate actions.
+            //    }
+            //}
+
 
             for (int i = 0; i < 5; i++)
             {
@@ -50,6 +69,7 @@
                 });
 
             }
+
 
             for (int i = 0; i < 2; i++)
             {
