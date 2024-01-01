@@ -28,7 +28,27 @@ namespace BLL.Services
             return mapped;
 
         }
+        public static void Create(DiscountCuponDTO discountCupon)
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<DiscountCuponDTO, DiscountCupon>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<DiscountCupon>(discountCupon);
+            DataAccessFactory.DiscountCuponData().Create(mapped);
+        }
 
+        public static void Update(DiscountCuponDTO discountCupon)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<DiscountCuponDTO, DiscountCupon>();
+            });
+            var mapper = new Mapper(config);
+            var data = mapper.Map<DiscountCupon>(discountCupon);
+            DataAccessFactory.DiscountCuponData().Update(data);
+        }
         //discountCouponDTO
         //CRUD, ServiceCouponDTO
 

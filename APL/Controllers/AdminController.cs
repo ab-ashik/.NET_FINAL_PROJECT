@@ -1,4 +1,5 @@
-﻿using BLL.Services;
+﻿using BLL.DTOs;
+using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,37 @@ namespace APL.Controllers
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });     
+            }
+        }
+
+        [HttpPost]
+        [Route("api/admin/coupon/create")]
+        public HttpResponseMessage Create(DiscountCuponDTO data)
+        {
+            try
+            {
+                AdminService.Create(data);
+                return Request.CreateResponse(HttpStatusCode.OK, "Created");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/admin/coupon/update")]
+        public HttpResponseMessage Update(DiscountCuponDTO data)
+        {
+            try
+            {
+                AdminService.Update(data);
+                return Request.CreateResponse(HttpStatusCode.OK, "Updated");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
 
