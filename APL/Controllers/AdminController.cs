@@ -40,7 +40,7 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-
+        
         [HttpPost]
         [Route("api/admin/coupon/update")]
         public HttpResponseMessage Update(DiscountCuponDTO data)
@@ -56,5 +56,33 @@ namespace APL.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/admin/notification/create")]
+        public HttpResponseMessage Create(NotificationDTO data)
+        {
+            try
+            {
+                AdminService.CreateNotification(data);
+                return Request.CreateResponse(HttpStatusCode.OK, "Created");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        [HttpPost]
+        [Route("api/admin/notification/update")]
+        public HttpResponseMessage Update(NotificationDTO data)
+        {
+            try
+            {
+                AdminService.UpdateNotification(data);
+                return Request.CreateResponse(HttpStatusCode.OK, "Updated");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

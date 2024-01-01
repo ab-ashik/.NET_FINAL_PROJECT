@@ -48,8 +48,28 @@ namespace BLL.Services
             var data = mapper.Map<DiscountCupon>(discountCupon);
             DataAccessFactory.DiscountCuponData().Update(data);
         }
-        //discountCouponDTO
-        //CRUD, ServiceCouponDTO
+
+        public static void CreateNotification(NotificationDTO notification)
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<NotificationDTO, Notification>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<Notification>(notification);
+            DataAccessFactory.NotificationData().Create(mapped);
+        }
+
+        public static void UpdateNotification(NotificationDTO notification)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<NotificationDTO, Notification>();
+            });
+            var mapper = new Mapper(config);
+            var data = mapper.Map<Notification>(notification);
+            DataAccessFactory.NotificationData().Update(data);
+        }
 
         //notificationDTO
         //CRUD
