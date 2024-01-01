@@ -14,8 +14,7 @@ namespace BLL.Services
     {
         //bookingDTO
         //admin can see user bookings with worker information and service.
-        //sfsgs
-        //oiugififi
+        
         public static List<BookingDTO> GetAllBooking()
         {
             var data = DataAccessFactory.BookingData().Read();
