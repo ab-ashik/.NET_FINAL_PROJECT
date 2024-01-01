@@ -4,6 +4,7 @@ using DAL;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,18 @@ namespace BLL.Services
 {
     public class UserService
     {
-        public static List<UserDTO> Get()
-        {
-            var data = DataAccessFactory.UserData().Read();
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<User, UserDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<List<UserDTO>>(data);
-            return mapped;
+        //public static List<UserDTO> Get()
+        //{
+        //    var data = DataAccessFactory.UserData().Read();
+        //    var cfg = new MapperConfiguration(c =>
+        //    {
+        //        c.CreateMap<User, UserDTO>();
+        //    });
+        //    var mapper = new Mapper(cfg);
+        //    var mapped = mapper.Map<List<UserDTO>>(data);
+        //    return mapped;
 
-        }   
+        //}   
 
         public static UserDTO Get(int id)
         {
@@ -36,6 +37,20 @@ namespace BLL.Services
             var mapped = mapper.Map<UserDTO>(data);
             return mapped;
 
+        }
+        public static bool Update(int id, UserDTO updatedUser)
+        {
+            var existingUser = DataAccessFactory.UserData().Read(id);
+            if (existingUser == null)
+            {
+                return false;
+            }
+            existingUser.UserName = updatedUser.UserName;
+            existingUser.Email = updatedUser.Email;
+            existingUser.Password = updatedUser.Password;
+            existingUser.PhoneNumber = updatedUser.PhoneNumber;
+            DataAccessFactory.UserData().Update(existingUser);
+            return true;
         }
 
         public static List<ServiceDTO> GetServices()
@@ -64,18 +79,18 @@ namespace BLL.Services
 
         }
 
-        public static List<WorkerDTO> GetWorkers()
-        {
-            var data = DataAccessFactory.WorkerData().Read();
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<Worker, WorkerDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<List<WorkerDTO>>(data);
-            return mapped;
+        //public static List<WorkerDTO> GetWorkers()
+        //{
+        //    var data = DataAccessFactory.WorkerData().Read();
+        //    var cfg = new MapperConfiguration(c =>
+        //    {
+        //        c.CreateMap<Worker, WorkerDTO>();
+        //    });
+        //    var mapper = new Mapper(cfg);
+        //    var mapped = mapper.Map<List<WorkerDTO>>(data);
+        //    return mapped;
 
-        }
+        //}
 
         public static void Create(UserDTO user)
         {
@@ -122,6 +137,35 @@ namespace BLL.Services
         //    return review;
         //}
 
+        //from a user get all workers of specific service
+        public static List<WorkerDTO> GetWorkersByService(int serviceID)
+        {
+            var data = DataAccessFactory.ServiceData().Read(serviceID);
+            var data2 = DataAccessFactory.WorkerData().Read().Where(w => w.Specialization == data.ServiceTitle);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Worker, WorkerDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<WorkerDTO>>(data2);
+            return mapped;
+
+        }
+
+        public static WorkerDTO GetWorker(int workerID)
+        {
+            var data = DataAccessFactory.WorkerData().Read(workerID);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Worker, WorkerDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<WorkerDTO>(data);
+            return mapped;
+
+        }
+
+
         public static UserReviewDTO GetReviews(int id)
         {
             var data = DataAccessFactory.UserData().Read(id);
@@ -136,17 +180,96 @@ namespace BLL.Services
 
         }
 
-        ///eeeeeeeeeeeerrrrrrrrroooooooooooooooooooooooooooooorrrrrrrrrrrrrrrrrrrrrrrrrrr
-        public static void CreateBooking(BookingDTO booking)
+        public static bool UpdateUserReview(int userID, int reviewID, ReviewDTO updatedReview)
         {
+            var existingReview = DataAccessFactory.ReviewData().Read(reviewID);
+            if (existingReview == null || existingReview.UserID != userID)
+            {
+                return false;
+            }
+            existingReview.Comment = updatedReview.Comment;
+            existingReview.Rating = updatedReview.Rating;
+            DataAccessFactory.ReviewData().Update(existingReview);
+            return true;
+        }
+
+        public static ReviewDTO GetUserSingleReview(int userID, int reviewID)
+        {
+            var reviewData = DataAccessFactory.ReviewData().Read(reviewID);
+
+            if (reviewData == null || reviewData.UserID != userID)
+            {
+                return null;
+            }
+
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Review, ReviewDTO>();
+            });
+
+            var mapper = new Mapper(cfg);
+            var mappedReview = mapper.Map<ReviewDTO>(reviewData);
+
+            return mappedReview;
+        }
+
+
+        public static void CreateBooking(int userID,int serviceID, int workerID, BookingDTO booking)
+        {
+            var userData = DataAccessFactory.UserData().Read(userID);
+            var workerData = DataAccessFactory.WorkerData().Read(workerID);
+            var serviceData = DataAccessFactory.ServiceData().Read(serviceID);
+
+            if (userData == null || workerData==null || serviceData == null)
+            {
+                return;
+            }
+
             var cfg = new MapperConfiguration(c =>
             {
                 c.CreateMap<BookingDTO, Booking>();
             });
+
             var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<Booking>(booking);
-            DataAccessFactory.BookingData().Create(mapped);
+            var mappedBooking = mapper.Map<Booking>(booking);
+
+            mappedBooking.UserID = userID;
+            mappedBooking.WorkerID = workerID;
+            mappedBooking.ServiceID = serviceID;
+            mappedBooking.BookingDate = DateTime.Now;
+            mappedBooking.Status = "Booking Pending and Payment Pending";
+
+            DataAccessFactory.BookingData().Create(mappedBooking);
+
+            return;
         }
+
+        ///eeeeeeeeeeeerrrrrrrrroooooooooooooooooooooooooooooorrrrrrrrrrrrrrrrrrrrrrrrrrr
+        //public static void CreateBooking(int userID, BookingDTO booking)
+        //{
+        //    var userData = DataAccessFactory.UserData().Read(userID);
+
+        //    if (userData == null)
+        //    {
+        //        return;
+        //    }
+
+        //    var cfg = new MapperConfiguration(c =>
+        //    {
+        //        c.CreateMap<BookingDTO, Booking>();
+        //    });
+
+        //    var mapper = new Mapper(cfg);
+        //    var mappedBooking = mapper.Map<Booking>(booking);
+
+        //    mappedBooking.UserID = userID;
+
+        //    DataAccessFactory.BookingData().Create(mappedBooking);
+
+        //    return;
+        //}
+
+        //create booking and
 
         public static UserBookingDTO GetBookings(int id)
         {
@@ -161,6 +284,9 @@ namespace BLL.Services
             return mapped;
 
         }
+
+
+
 
 
 
@@ -184,6 +310,69 @@ namespace BLL.Services
             var mappedBooking = mapper.Map<BookingDTO>(bookingData);
 
             return mappedBooking;
+        }
+
+        public static bool CancelUserBooking(int userID, int bookingId)
+        {
+            var bookingData = DataAccessFactory.BookingData().Read(bookingId);
+
+            if (bookingData == null || bookingData.UserID != userID)
+            {
+                return false;
+            }
+            bookingData.Status = "Cancelled";
+
+            DataAccessFactory.BookingData().Update(bookingData);
+
+            return true;
+        }
+
+
+        public static bool UpdateUserBooking(int userID, int bookingId, BookingDTO updatedBooking)
+        {
+            var existingBooking = DataAccessFactory.BookingData().Read(bookingId);
+
+            if (existingBooking == null || existingBooking.UserID != userID)
+            {
+                return false;
+            }
+            existingBooking.DueDate = updatedBooking.DueDate;
+            //existingBooking.Status = updatedBooking.Status;
+            DataAccessFactory.BookingData().Update(existingBooking);
+            return true;
+        }
+
+        public static void MakePayment(int userID, int bookingID, PaymentDTO payment)
+        {
+            var userData = DataAccessFactory.UserData().Read(userID);
+            var bookingData = DataAccessFactory.BookingData().Read(bookingID);
+
+            if (userData == null || bookingData == null || bookingData.Status != "Accepted")
+            {
+                return;
+            }
+
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<PaymentDTO, Payment>();
+            });
+
+            
+
+            var mapper = new Mapper(cfg);
+            var mappedPayment = mapper.Map<Payment>(payment);
+
+            mappedPayment.UserID = userID;
+            mappedPayment.BookingID = bookingID;
+            mappedPayment.PaymentStatus = "Paid";
+            mappedPayment.TransactionDate = DateTime.Now;
+
+            //make Booking status to "Payment Done"
+             bookingData.Status = "Payment Done";
+
+            DataAccessFactory.PaymentData().Create(mappedPayment);
+
+            return;
         }
 
 

@@ -26,6 +26,23 @@ namespace APL.Controllers
         //        return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
         //    }
         //}
+        [HttpPost]
+        [Route("api/users/create")]
+        public HttpResponseMessage Create(UserDTO user)
+        {
+            try
+            {
+                UserService.Create(user);
+                return Request.CreateResponse(HttpStatusCode.OK, "created");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
+            }
+
+        }
+
+
         [HttpGet]
         [Route("api/users/{id}")]
         //dfkghdlfhglhdf
@@ -42,10 +59,32 @@ namespace APL.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/users/{id}/update")]
+        public HttpResponseMessage Update(int id, UserDTO updatedUser)
+        {
+            try
+            {
+                var success = UserService.Update(id, updatedUser);
+
+                if (!success)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "User not found." });
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, new { Message = "User successfully updated." });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException });
+            }
+        }
+
+
 
         [HttpGet]
-        [Route("api/user/services")]
-        public HttpResponseMessage Services()
+        [Route("api/users/{id}/services")]
+        public HttpResponseMessage Services(int id)
         {
             try
             {
@@ -58,8 +97,8 @@ namespace APL.Controllers
             }
         }
         [HttpGet]
-        [Route("api/user/services/{id}")]
-        public HttpResponseMessage Services(int id)
+        [Route("api/users/{id}/services/{serviceID}")]
+        public HttpResponseMessage Services(int id, int serviceID)
         {
             try
             {
@@ -72,24 +111,61 @@ namespace APL.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/user/create")]
-        public HttpResponseMessage Create(UserDTO user)
+        [HttpGet]
+        [Route("api/users/{id}/services/{serviceID}/workers")]
+        public HttpResponseMessage Workers(int id, int serviceID)
         {
             try
             {
-                UserService.Create(user);
-                return Request.CreateResponse(HttpStatusCode.OK, "created");
+                var data = UserService.GetWorkersByService(serviceID);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException.Message });
+            }
+
+        }
+
+        [HttpGet]
+        [Route("api/users/{id}/services/{serviceID}/workers/{workerID}")]
+        //get specific worker
+        public HttpResponseMessage Worker(int id, int serviceID, int workerID)
+        {
+            try
+            {
+                var data = UserService.GetWorker(workerID);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException.Message });
             }
 
         }
 
         [HttpPost]
-        [Route("api/user/{id}/reviews/create")]
+        [Route("api/users/{id}/services/{serviceID}/workers/{workerID}/createBooking")]
+        public HttpResponseMessage CreateBooking(int id, int serviceID, int workerID, BookingDTO booking)
+        {
+            try
+            {
+                UserService.CreateBooking(id, serviceID, workerID, booking);
+                return Request.CreateResponse(HttpStatusCode.OK, "created");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException.InnerException });
+            }
+
+        }
+
+       
+
+
+
+        [HttpPost]
+        [Route("api/users/{id}/reviews/create")]
         public HttpResponseMessage CreateReview(ReviewDTO review)
         {
             try
@@ -105,7 +181,7 @@ namespace APL.Controllers
         }
 
         [HttpGet]
-        [Route("api/user/{id}/reviews")]
+        [Route("api/users/{id}/reviews")]
         public HttpResponseMessage Reviews(int id)
         {
             try
@@ -119,9 +195,88 @@ namespace APL.Controllers
             }
 
         }
-        //Get single user single booking
+
         [HttpGet]
-        [Route("api/user/{id}/bookings/{bookingId}")]
+        [Route("api/users/{id}/reviews/{reviewID}")]
+        public HttpResponseMessage UserSingleReview(int id, int reviewID)
+        {
+            try
+            {
+                var data = UserService.GetUserSingleReview(id, reviewID);
+
+                if (data == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "Review not found or not associated with the specified user." });
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("api/users/{id}/reviews/{reviewID}/update")]
+        public HttpResponseMessage UpdateUserSingleReview(int id, int reviewID, ReviewDTO updatedReview)
+        {
+            try
+            {
+                var success = UserService.UpdateUserReview(id, reviewID, updatedReview);
+
+                if (!success)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "Review not found or not associated with the specified user." });
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, new { Message = "Review successfully updated." });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException });
+            }
+        }
+
+
+
+
+        [HttpGet]
+        [Route("api/users/{id}/bookings")]
+        public HttpResponseMessage Bookings(int id)
+        {
+            try
+            {
+                var data = UserService.GetBookings(id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
+            }
+
+        }
+
+
+        //[HttpPost]
+        //[Route("api/users/{id}/bookings/create")]
+        //public HttpResponseMessage CreateBooking(int id, BookingDTO booking)
+        //{
+        //    try
+        //    {
+        //        UserService.CreateBooking(id, booking);
+        //        return Request.CreateResponse(HttpStatusCode.OK, "created");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException.InnerException });
+        //    }
+
+        //}
+
+
+        [HttpGet]
+        [Route("api/users/{id}/bookings/{bookingId}")]
         public HttpResponseMessage WorkerSingleBooking(int id, int bookingId)
         {
             try
@@ -139,6 +294,64 @@ namespace APL.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
+        }
+
+        [HttpPut]
+        [Route("api/users/{id}/bookings/{bookingId}/update")]
+        public HttpResponseMessage UpdateUserSingleBooking(int id, int bookingId, BookingDTO updatedBooking)
+        {
+            try
+            {
+                var success = UserService.UpdateUserBooking(id, bookingId, updatedBooking);
+
+                if (!success)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "Booking not found or not associated with the specified user." });
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, new { Message = "Booking successfully updated." });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException });
+            }
+        }
+
+        [HttpPut]
+        [Route("api/users/{id}/bookings/{bookingId}/cancel")]
+        public HttpResponseMessage DeleteUserSingleBooking(int id, int bookingId)
+        {
+            try
+            {
+                var success = UserService.CancelUserBooking(id, bookingId);
+
+                if (!success)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "Booking not found or not associated with the specified user." });
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, new { Message = "Booking successfully cancelled." });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException.InnerException.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/users/{id}/bookings/{bookingId}/makePayment")]
+        public HttpResponseMessage MakePayment(int id, int bookingId, PaymentDTO payment)
+        {
+            try
+            {
+                UserService.MakePayment(id, bookingId, payment);
+                return Request.CreateResponse(HttpStatusCode.OK, "Payment made");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
+            }
+
         }
 
 
@@ -160,21 +373,6 @@ namespace APL.Controllers
 
         //}
 
-        [HttpGet]
-        [Route("api/user/{id}/bookings")]
-        public HttpResponseMessage Bookings(int id)
-        {
-            try
-            {
-                var data = UserService.GetBookings(id);
-                return Request.CreateResponse(HttpStatusCode.OK, data);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
-            }
-
-        }
 
 
 

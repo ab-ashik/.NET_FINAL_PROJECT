@@ -54,9 +54,9 @@
   <ItemGroup>
     <Compile Include="DataAccessFactory.cs" />
     <Compile Include="Interfaces\IRepo.cs" />
-    <Compile Include="Migrations\202401010813466_initDB.cs" />
-    <Compile Include="Migrations\202401010813466_initDB.designer.cs">
-      <DependentUpon>202401010813466_initDB.cs</DependentUpon>
+    <Compile Include="Migrations\202401011637590_initDB.cs" />
+    <Compile Include="Migrations\202401011637590_initDB.designer.cs">
+      <DependentUpon>202401011637590_initDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Booking.cs" />
@@ -89,8 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202401010813466_initDB.resx">
-      <DependentUpon>202401010813466_initDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202401011637590_initDB.resx">
+      <DependentUpon>202401011637590_initDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -20,6 +20,7 @@
             //  to avoid creating duplicate seed data.
 
 
+
             Random random = new Random(8);
             for (int i = 0; i < 5; i++)
             {
@@ -74,7 +75,7 @@
                     PhoneNumber = "+88017" + random.Next().ToString(),
                     Specialization = "Electrician",
                     IsAvailable = true,
-                  //  AvailableDays = new string[] { "Sunday", "Tuesday", "Friday" },
+                    //  AvailableDays = new string[] { "Sunday", "Tuesday", "Friday" },
                     AvailableStartTime = "10 AM",
                     AvailableEndTime = "4 PM",
                 });
@@ -115,6 +116,7 @@
                 context.Payments.AddOrUpdate(new Models.Payment
                 {
                     PaymentID = i + 1,
+                    UserID = i + 1,
                     BookingID = i + 1,
                     Amount = 500,
                     PaymentMethod = "Online",

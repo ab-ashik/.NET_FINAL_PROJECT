@@ -158,6 +158,32 @@ namespace BLL.Services
             var mapped = mapper.Map<Worker>(worker);
             DataAccessFactory.WorkerData().Create(mapped);
         }
+        
+        //update a single booking where status is accepted and move to service history
+        public static bool UpdateBookingStatus(int workerID, int bookingID, BookingDTO booking)
+        {
+            var existingBooking = DataAccessFactory.BookingData().Read(bookingID);
+
+            if (existingBooking == null || existingBooking.WorkerID != workerID)
+            {
+                return false;
+            }
+
+            if (booking.Status == "Completed")
+            {
+                // If the status is "Accepted", fill Payment
+
+                
+            }
+            else
+            {
+                // If the status is not "Accepted", update the existing booking's status
+                existingBooking.Status = booking.Status;
+                DataAccessFactory.BookingData().Update(existingBooking);
+            }
+
+            return true;
+        }
 
     }
 }

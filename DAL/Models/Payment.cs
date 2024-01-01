@@ -9,6 +9,10 @@ namespace DAL.Models
         [Key]
         public int PaymentID { get; set; }
 
+        [Required]
+        [ForeignKey("User")]
+        public int UserID { get; set; }
+
         [ForeignKey("Booking")]
         public int BookingID { get; set; }
 
@@ -24,5 +28,6 @@ namespace DAL.Models
 
         //Virtual Properties
         public virtual Booking Booking { get; set; }
+        public virtual User User { get; set; }
     }
 }

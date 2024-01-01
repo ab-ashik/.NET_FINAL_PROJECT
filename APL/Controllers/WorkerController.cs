@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace APL.Controllers
 {
@@ -79,26 +80,27 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
         }
-        [HttpPut]
-        [Route("api/workers/{workerID}/bookings/{bookingId}/update")]
-        public HttpResponseMessage UpdateWorkerSingleBooking(int workerID, int bookingId, BookingDTO updatedBooking)
-        {
-            try
-            {
-                var success = WorkerService.UpdateWorkerSingleBooking(workerID, bookingId, updatedBooking);
+       // [HttpPut]
+       // [Route("api/workers/{workerID}/bookings/{bookingId}/update")]
+       //// update a single booking where status is accepted and move to service history
+       //public HttpResponseMessage UpdateWorkerBooking(int workerID, int bookingId, BookingDTO booking)
+       // {
+       //     try
+       //     {
+       //         var data = WorkerService.UpdateBookingStatus(workerID, bookingId, booking);
 
-                if (!success)
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "Booking not found or not associated with the specified worker." });
-                }
+       //         if (data == null)
+       //         {
+       //             return Request.CreateResponse(HttpStatusCode.NotFound, new { Message = "Booking not found or not associated with the specified worker." });
+       //         }
 
-                return Request.CreateResponse(HttpStatusCode.OK, new { Message = "Booking successfully updated." });
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
-            }
-        }
+       //         return Request.CreateResponse(HttpStatusCode.OK, data);
+       //     }
+       //     catch (Exception ex)
+       //     {
+       //         return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.InnerException.InnerException });
+       //     }
+       // }
 
         //Get Workers Service History
         [HttpGet]
@@ -115,6 +117,8 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
         }
+
+
 
         [HttpPost]
         [Route("api/workers/create")]
