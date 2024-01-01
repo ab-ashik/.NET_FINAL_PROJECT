@@ -74,7 +74,7 @@
                     PhoneNumber = "+88017" + random.Next().ToString(),
                     Specialization = "Electrician",
                     IsAvailable = true,
-                  //  AvailableDays = new string[] { "Sunday", "Tuesday", "Friday" },
+                    //  AvailableDays = new string[] { "Sunday", "Tuesday", "Friday" },
                     AvailableStartTime = "10 AM",
                     AvailableEndTime = "4 PM",
                 });
