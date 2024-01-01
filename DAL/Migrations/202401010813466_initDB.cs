@@ -17,7 +17,7 @@
                         WorkerID = c.Int(nullable: false),
                         BookingDate = c.DateTime(nullable: false),
                         DueDate = c.DateTime(nullable: false),
-                        Status = c.String(),
+                        Status = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.BookingID)
                 .ForeignKey("dbo.Services", t => t.ServiceID)
@@ -51,6 +51,26 @@
                         PhoneNumber = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.UserID);
+            
+            CreateTable(
+                "dbo.Reviews",
+                c => new
+                    {
+                        ReviewID = c.Int(nullable: false, identity: true),
+                        UserID = c.Int(nullable: false),
+                        WorkerID = c.Int(nullable: false),
+                        BookingID = c.Int(nullable: false),
+                        Rating = c.Int(nullable: false),
+                        Comment = c.String(nullable: false, maxLength: 200),
+                        ReviewDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ReviewID)
+                .ForeignKey("dbo.Bookings", t => t.BookingID)
+                .ForeignKey("dbo.Users", t => t.UserID)
+                .ForeignKey("dbo.Workers", t => t.WorkerID)
+                .Index(t => t.UserID)
+                .Index(t => t.WorkerID)
+                .Index(t => t.BookingID);
             
             CreateTable(
                 "dbo.Workers",
@@ -110,26 +130,6 @@
                 .Index(t => t.BookingID);
             
             CreateTable(
-                "dbo.Reviews",
-                c => new
-                    {
-                        ReviewID = c.Int(nullable: false, identity: true),
-                        UserID = c.Int(nullable: false),
-                        WorkerID = c.Int(nullable: false),
-                        BookingID = c.Int(nullable: false),
-                        Rating = c.Int(nullable: false),
-                        Comment = c.String(nullable: false, maxLength: 200),
-                        ReviewDate = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ReviewID)
-                .ForeignKey("dbo.Bookings", t => t.BookingID)
-                .ForeignKey("dbo.Users", t => t.UserID)
-                .ForeignKey("dbo.Workers", t => t.WorkerID)
-                .Index(t => t.UserID)
-                .Index(t => t.WorkerID)
-                .Index(t => t.BookingID);
-            
-            CreateTable(
                 "dbo.ServiceHistories",
                 c => new
                     {
@@ -168,13 +168,13 @@
             DropForeignKey("dbo.ServiceHistories", "ReviewID", "dbo.Reviews");
             DropForeignKey("dbo.ServiceHistories", "PaymentID", "dbo.Payments");
             DropForeignKey("dbo.ServiceHistories", "BookingID", "dbo.Bookings");
-            DropForeignKey("dbo.Reviews", "WorkerID", "dbo.Workers");
-            DropForeignKey("dbo.Reviews", "UserID", "dbo.Users");
-            DropForeignKey("dbo.Reviews", "BookingID", "dbo.Bookings");
             DropForeignKey("dbo.Payments", "BookingID", "dbo.Bookings");
             DropForeignKey("dbo.Notifications", "UserID", "dbo.Users");
             DropForeignKey("dbo.Bookings", "WorkerID", "dbo.Workers");
             DropForeignKey("dbo.Bookings", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Reviews", "WorkerID", "dbo.Workers");
+            DropForeignKey("dbo.Reviews", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Reviews", "BookingID", "dbo.Bookings");
             DropForeignKey("dbo.Bookings", "ServiceID", "dbo.Services");
             DropIndex("dbo.ServiceHistories", new[] { "ReviewID" });
             DropIndex("dbo.ServiceHistories", new[] { "PaymentID" });
@@ -182,20 +182,20 @@
             DropIndex("dbo.ServiceHistories", new[] { "ServiceID" });
             DropIndex("dbo.ServiceHistories", new[] { "WorkerID" });
             DropIndex("dbo.ServiceHistories", new[] { "UserID" });
+            DropIndex("dbo.Payments", new[] { "BookingID" });
+            DropIndex("dbo.Notifications", new[] { "UserID" });
             DropIndex("dbo.Reviews", new[] { "BookingID" });
             DropIndex("dbo.Reviews", new[] { "WorkerID" });
             DropIndex("dbo.Reviews", new[] { "UserID" });
-            DropIndex("dbo.Payments", new[] { "BookingID" });
-            DropIndex("dbo.Notifications", new[] { "UserID" });
             DropIndex("dbo.Bookings", new[] { "WorkerID" });
             DropIndex("dbo.Bookings", new[] { "ServiceID" });
             DropIndex("dbo.Bookings", new[] { "UserID" });
             DropTable("dbo.ServiceHistories");
-            DropTable("dbo.Reviews");
             DropTable("dbo.Payments");
             DropTable("dbo.Notifications");
             DropTable("dbo.DiscountCupons");
             DropTable("dbo.Workers");
+            DropTable("dbo.Reviews");
             DropTable("dbo.Users");
             DropTable("dbo.Services");
             DropTable("dbo.Bookings");

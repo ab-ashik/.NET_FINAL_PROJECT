@@ -33,8 +33,8 @@ namespace DAL.Models
         [Required]
         public bool IsAvailable { get; set; }
 
-        [Required]
-        public List<string> AvailableDays { get; set; }
+       // [Required]
+      //  public string [] AvailableDays { get; set; }
 
         [Required]
         public string AvailableStartTime { get; set; }
