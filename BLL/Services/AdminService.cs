@@ -28,7 +28,10 @@ namespace BLL.Services
 
         }
 
-        public static void Create(DiscountCuponDTO discountCupon)
+        //discountCouponDTO
+        //CRUD, ServiceCouponDTO
+
+        public static void CreateCoupon(DiscountCuponDTO discountCupon)
         {
             var cfg = new MapperConfiguration(c =>
             {
@@ -39,7 +42,7 @@ namespace BLL.Services
             DataAccessFactory.DiscountCuponData().Create(mapped);
         }
 
-        public static void Update(DiscountCuponDTO discountCupon)
+        public static void UpdateCoupon(DiscountCuponDTO discountCupon)
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -62,7 +65,7 @@ namespace BLL.Services
         }
 
 
-        public static DiscountCuponDTO Get(int id)
+        public static DiscountCuponDTO GetCoupon(int id)
         {
             var data = DataAccessFactory.DiscountCuponData().Read(id);
             var config = new MapperConfiguration(cfg => {
@@ -73,7 +76,7 @@ namespace BLL.Services
             return ret;
         }
 
-        public static bool Delete(int id)
+        public static bool DeleteCoupon(int id)
         {
             return DataAccessFactory.DiscountCuponData().Delete(id);
         }
@@ -93,6 +96,94 @@ namespace BLL.Services
 
         }
 
+
+        //notificationDTO
+        //CRUD
+
+
+        public static List<NotificationDTO> GetAllNotifications()
+        {
+            var data = DataAccessFactory.NotificationData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Notification, NotificationDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<NotificationDTO>>(data);
+            return ret;
+        }
+
+
+        public static NotificationDTO GetNotification(int id)
+        {
+            var data = DataAccessFactory.NotificationData().Read(id);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Notification, NotificationDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<NotificationDTO>(data);
+            return ret;
+        }
+
+        public static bool DeleteNotification(int id)
+        {
+            return DataAccessFactory.DiscountCuponData().Delete(id);
+        }
+
+        //paymentDTo
+        //paymentList (BookingDTO, PaymentDTO)
+
+        public static List<PaymentDTO> GetAllPayments()
+        {
+            var data = DataAccessFactory.PaymentData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Payment, PaymentDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<PaymentDTO>>(data);
+            return ret;
+        }
+
+        //ReviewDTO
+        //ReviewList, Find
+
+        public static List<ReviewDTO> GetAllReviews()
+        {
+            var data = DataAccessFactory.ReviewData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Review, ReviewDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<ReviewDTO>>(data);
+            return ret;
+        }
+
+
+        public static ReviewDTO GetReview(int id)
+        {
+            var data = DataAccessFactory.ReviewData().Read(id);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Review, ReviewDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<ReviewDTO>(data);
+            return ret;
+        }
+
+        //ServiceDTO
+        //CRUD, Service-WorkerDTO (List)
+
+        public static List<ServiceDTO> GetAllServices()
+        {
+            var data = DataAccessFactory.ServiceData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Service, ServiceDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<ServiceDTO>>(data);
+            return ret;
+        }
+
+
         public static ServiceDTO GetService(int id)
         {
             var data = DataAccessFactory.ServiceData().Read(id);
@@ -106,27 +197,15 @@ namespace BLL.Services
 
         }
 
-
-
-
-
-        //discountCouponDTO
-        //CRUD, ServiceCouponDTO
-
-        //notificationDTO
-        //CRUD
-
-        //paymentDTo
-        //paymentList (BookingDTO, PaymentDTO)
-
-        //ReviewDTO
-        //ReviewList, Find
-
-        //ServiceDTO
-        //CRUD, Service-WorkerDTO (List)
+        public static bool DeleteService(int id)
+        {
+            return DataAccessFactory.ServiceData().Delete(id);
+        }
 
         //ServiceHistory
         //List
+
+
 
         //userBookingDTO
         //List
