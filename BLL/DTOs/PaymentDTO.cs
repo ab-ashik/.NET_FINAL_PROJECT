@@ -17,6 +17,9 @@ namespace BLL.DTOs
         public int BookingID { get; set; }
 
         [Required]
+        public int UserID { get; set; }
+
+        [Required]
         public int Amount { get; set; }
 
         [Required]
