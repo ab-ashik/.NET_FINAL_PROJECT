@@ -71,6 +71,28 @@ namespace BLL.Services
             DataAccessFactory.NotificationData().Update(data);
         }
 
+        public static void CreateService(ServiceDTO service)
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<ServiceDTO, Service>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<Service>(service);
+            DataAccessFactory.ServiceData().Create(mapped);
+        }
+
+        public static void UpdateService(ServiceDTO service)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ServiceDTO, Service>();
+            });
+            var mapper = new Mapper(config);
+            var data = mapper.Map<Service>(service);
+            DataAccessFactory.ServiceData().Update(data);
+        }
+
         //notificationDTO
         //CRUD
 

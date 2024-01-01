@@ -56,13 +56,14 @@ namespace APL.Controllers
             }
         }
 
+
         [HttpPost]
-        [Route("api/admin/notification/create")]
-        public HttpResponseMessage Create(NotificationDTO data)
+        [Route("api/admin/service/create")]
+        public HttpResponseMessage Create(ServiceDTO data)
         {
             try
             {
-                AdminService.CreateNotification(data);
+                AdminService.CreateService(data);
                 return Request.CreateResponse(HttpStatusCode.OK, "Created");
             }
             catch (Exception ex)
@@ -71,12 +72,12 @@ namespace APL.Controllers
             }
         }
         [HttpPost]
-        [Route("api/admin/notification/update")]
-        public HttpResponseMessage Update(NotificationDTO data)
+        [Route("api/admin/service/update")]
+        public HttpResponseMessage Update(ServiceDTO data)
         {
             try
             {
-                AdminService.UpdateNotification(data);
+                AdminService.UpdateService(data);
                 return Request.CreateResponse(HttpStatusCode.OK, "Updated");
             }
             catch (Exception ex)
