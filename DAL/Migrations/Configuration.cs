@@ -83,7 +83,7 @@
             }
 
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.Services.AddOrUpdate(new Models.Service
                 {
@@ -97,7 +97,7 @@
                 });
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.Bookings.AddOrUpdate(new Models.Booking
                 {
@@ -111,7 +111,7 @@
                 });
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.Payments.AddOrUpdate(new Models.Payment
                 {
@@ -126,7 +126,7 @@
                 });
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.Reviews.AddOrUpdate(new Models.Review
                 {
@@ -142,7 +142,7 @@
                 });
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.Notifications.AddOrUpdate(new Models.Notification
                 {
@@ -154,7 +154,7 @@
                 });
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.DiscountCupons.AddOrUpdate(new Models.DiscountCupon
                 {
@@ -169,7 +169,7 @@
             }
 
             //DateTime date = new DateTime();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 context.ServicesHistories.AddOrUpdate(new Models.ServiceHistory
                 {
