@@ -1,9 +1,8 @@
 ﻿namespace DAL.Migrations
 {
     using System;
-    using System.Data.Entity;
+    using System.Collections.Generic;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DAL.Models.ServiceAppContext>
     {
@@ -14,12 +13,6 @@
 
         protected override void Seed(DAL.Models.ServiceAppContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
-
-
             Random random = new Random(8);
             for (int i = 0; i < 5; i++)
             {
@@ -74,7 +67,7 @@
                     PhoneNumber = "+88017" + random.Next().ToString(),
                     Specialization = "Electrician",
                     IsAvailable = true,
-                  //  AvailableDays = new string[] { "Sunday", "Tuesday", "Friday" },
+                    AvailableDays = new List<string>(new string[] { "Sunday", "Tuesday", "Friday" }),
                     AvailableStartTime = "10 AM",
                     AvailableEndTime = "4 PM",
                 });
