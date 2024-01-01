@@ -50,6 +50,7 @@
     <Compile Include="DTOs\UserReviewDTO.cs" />
     <Compile Include="DTOs\WorkerBookingDTO.cs" />
     <Compile Include="DTOs\WorkerServiceHistoryDTO.cs" />
+    <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WorkerService.cs" />
     <Compile Include="DTOs\BookingDTO.cs" />
@@ -64,13 +65,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{1fcef140-6971-48a3-a1fc-c1849c4e7bcb}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
