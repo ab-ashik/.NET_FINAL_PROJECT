@@ -41,6 +41,15 @@ namespace DAL.Models
 
         [Required]
         public string AvailableEndTime { get; set; }
+        public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<ServiceHistory> ServiceHistories { get; set; }
+
+        public Worker()
+        {
+            Bookings = new List<Booking>();
+            ServiceHistories = new List<ServiceHistory>();
+
+        }
 
     }
 }
