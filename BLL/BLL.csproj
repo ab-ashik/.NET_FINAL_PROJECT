@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="DTOs\UserBookingDTO.cs" />
     <Compile Include="DTOs\UserReviewDTO.cs" />
+    <Compile Include="DTOs\WorkerBookingDTO.cs" />
+    <Compile Include="DTOs\WorkerServiceHistoryDTO.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\WorkerService.cs" />
     <Compile Include="DTOs\BookingDTO.cs" />
