@@ -26,6 +26,7 @@ namespace DAL.Models
 
         // public DateTime CompletionDate { get; set; }
 
+        [Required]
         public string Status { get; set; }
 
         //Virtual Properties

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace DAL.Models
 {
@@ -24,5 +26,15 @@ namespace DAL.Models
         [Phone]
         public string PhoneNumber { get; set; }
 
+        public virtual ICollection<Review> Reviews { get; set; }
+
+
+        public virtual ICollection<Booking> Bookings { get; set; }
+
+        public User()
+        {
+            Reviews = new List<Review>();
+            Bookings = new List<Booking>();
+        }
     }
 }
