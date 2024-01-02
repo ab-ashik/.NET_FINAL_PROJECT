@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\BookingPaymentDTO.cs" />
     <Compile Include="DTOs\UserBookingDTO.cs" />
     <Compile Include="DTOs\UserReviewDTO.cs" />
     <Compile Include="DTOs\WorkerBookingDTO.cs" />
