@@ -53,6 +53,24 @@
                 .PrimaryKey(t => t.UserID);
             
             CreateTable(
+                "dbo.Payments",
+                c => new
+                    {
+                        PaymentID = c.Int(nullable: false, identity: true),
+                        UserID = c.Int(nullable: false),
+                        BookingID = c.Int(nullable: false),
+                        Amount = c.Int(nullable: false),
+                        PaymentMethod = c.String(nullable: false),
+                        TransactionDate = c.DateTime(nullable: false),
+                        PaymentStatus = c.String(),
+                    })
+                .PrimaryKey(t => t.PaymentID)
+                .ForeignKey("dbo.Bookings", t => t.BookingID)
+                .ForeignKey("dbo.Users", t => t.UserID)
+                .Index(t => t.UserID)
+                .Index(t => t.BookingID);
+            
+            CreateTable(
                 "dbo.Reviews",
                 c => new
                     {
@@ -118,24 +136,6 @@
                 .Index(t => t.ReviewID);
             
             CreateTable(
-                "dbo.Payments",
-                c => new
-                    {
-                        PaymentID = c.Int(nullable: false, identity: true),
-                        UserID = c.Int(nullable: false),
-                        BookingID = c.Int(nullable: false),
-                        Amount = c.Int(nullable: false),
-                        PaymentMethod = c.String(nullable: false),
-                        TransactionDate = c.DateTime(nullable: false),
-                        PaymentStatus = c.String(),
-                    })
-                .PrimaryKey(t => t.PaymentID)
-                .ForeignKey("dbo.Bookings", t => t.BookingID)
-                .ForeignKey("dbo.Users", t => t.UserID)
-                .Index(t => t.UserID)
-                .Index(t => t.BookingID);
-            
-            CreateTable(
                 "dbo.DiscountCupons",
                 c => new
                     {
@@ -174,15 +174,13 @@
             DropForeignKey("dbo.ServiceHistories", "ServiceID", "dbo.Services");
             DropForeignKey("dbo.ServiceHistories", "ReviewID", "dbo.Reviews");
             DropForeignKey("dbo.ServiceHistories", "PaymentID", "dbo.Payments");
-            DropForeignKey("dbo.Payments", "UserID", "dbo.Users");
-            DropForeignKey("dbo.Payments", "BookingID", "dbo.Bookings");
             DropForeignKey("dbo.ServiceHistories", "BookingID", "dbo.Bookings");
             DropForeignKey("dbo.Reviews", "UserID", "dbo.Users");
             DropForeignKey("dbo.Reviews", "BookingID", "dbo.Bookings");
+            DropForeignKey("dbo.Payments", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Payments", "BookingID", "dbo.Bookings");
             DropForeignKey("dbo.Bookings", "ServiceID", "dbo.Services");
             DropIndex("dbo.Notifications", new[] { "UserID" });
-            DropIndex("dbo.Payments", new[] { "BookingID" });
-            DropIndex("dbo.Payments", new[] { "UserID" });
             DropIndex("dbo.ServiceHistories", new[] { "ReviewID" });
             DropIndex("dbo.ServiceHistories", new[] { "PaymentID" });
             DropIndex("dbo.ServiceHistories", new[] { "BookingID" });
@@ -192,15 +190,17 @@
             DropIndex("dbo.Reviews", new[] { "BookingID" });
             DropIndex("dbo.Reviews", new[] { "WorkerID" });
             DropIndex("dbo.Reviews", new[] { "UserID" });
+            DropIndex("dbo.Payments", new[] { "BookingID" });
+            DropIndex("dbo.Payments", new[] { "UserID" });
             DropIndex("dbo.Bookings", new[] { "WorkerID" });
             DropIndex("dbo.Bookings", new[] { "ServiceID" });
             DropIndex("dbo.Bookings", new[] { "UserID" });
             DropTable("dbo.Notifications");
             DropTable("dbo.DiscountCupons");
-            DropTable("dbo.Payments");
             DropTable("dbo.ServiceHistories");
             DropTable("dbo.Workers");
             DropTable("dbo.Reviews");
+            DropTable("dbo.Payments");
             DropTable("dbo.Users");
             DropTable("dbo.Services");
             DropTable("dbo.Bookings");

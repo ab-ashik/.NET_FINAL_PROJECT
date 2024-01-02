@@ -9,7 +9,7 @@ namespace DAL.Models
         [Key]
         public int PaymentID { get; set; }
 
-        [Required]
+       // [Required]
         [ForeignKey("User")]
         public int UserID { get; set; }
 
