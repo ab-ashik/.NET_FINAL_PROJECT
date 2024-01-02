@@ -145,7 +145,7 @@ namespace BLL.Services
         {
             var data = DataAccessFactory.BookingData().Read(bookingID);
 
-            if (data != null && data.Status == "Accepted")
+            if (data != null && data.Status == "Paid")
             {
                 var cfg = new MapperConfiguration(c =>
                 {

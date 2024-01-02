@@ -322,7 +322,7 @@ namespace BLL.Services
 
             DataAccessFactory.PaymentData().Create(mappedPayment);
 
-            bookingData.Status = "Paid";
+            bookingData.Status = "Complete";
 
             DataAccessFactory.BookingData().Update(bookingData);
 
