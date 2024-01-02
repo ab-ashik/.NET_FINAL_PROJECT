@@ -85,17 +85,9 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
         }
-<<<<<<< HEAD
-
-        //Single Incoming Bookings
-        [HttpGet]
-        [Route("api/workers/{id}/incomingBookings/{bookingID}")]
-=======
-        
         //Single Incoming Bookings
         [HttpGet]
         [Route("api/workers/{id}/incomingBookings/{bookingID}")]   
->>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
         public HttpResponseMessage WorkerIncomingBookings(int id, int bookingID)
         {
             try
@@ -191,7 +183,7 @@ namespace APL.Controllers
                 var data = WorkerService.GetwithPayment(bookingID);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
@@ -212,10 +204,5 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Message = ex.Message });
             }
         }
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
     }
 }

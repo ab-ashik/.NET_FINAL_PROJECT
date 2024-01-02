@@ -164,7 +164,6 @@ namespace BLL.Services
 
 
 
-        //Worker all service history
         public static List<ServiceHistoryDTO> GetServiceHistory(int id)
         {
             var data = DataAccessFactory.ServiceHistoryData().Read().Where(x => x.WorkerID == id);
@@ -176,11 +175,7 @@ namespace BLL.Services
             var mapped = mapper.Map<List<ServiceHistoryDTO>>(data);
             return mapped;
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
 
     }
 }
