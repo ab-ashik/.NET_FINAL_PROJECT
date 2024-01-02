@@ -26,7 +26,6 @@ namespace APL.Controllers
             }
         }
 
-<<<<<<< HEAD
         [HttpGet]
         [Route("api/admin/services/{id}/coupons")]
         public HttpResponseMessage ServiceWithCoupons(int id)
@@ -71,19 +70,15 @@ namespace APL.Controllers
             }
         }
 
-=======
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
         [HttpPost]
         [Route("api/admin/coupon/create")]
         public HttpResponseMessage Create(DiscountCuponDTO data)
         {
             try
             {
-<<<<<<< HEAD
                 AdminService.CreateCoupon(data);
-=======
+
                 AdminService.Create(data);
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
                 return Request.CreateResponse(HttpStatusCode.OK, "Created");
             }
             catch (Exception ex)
@@ -91,22 +86,17 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
         [HttpPost]
         [Route("api/admin/coupon/update")]
         public HttpResponseMessage Update(DiscountCuponDTO data)
         {
             try
             {
-<<<<<<< HEAD
+
                 AdminService.UpdateCoupon(data);
-=======
+
                 AdminService.Update(data);
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
                 return Request.CreateResponse(HttpStatusCode.OK, "Updated");
             }
             catch (Exception ex)
@@ -114,7 +104,6 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-<<<<<<< HEAD
         [HttpGet]
         [Route("api/admin/coupon/delete/{id}")]
         public HttpResponseMessage Delete(int id)
@@ -168,8 +157,12 @@ namespace APL.Controllers
             {
                 var data = AdminService.DeleteNotification(id);
                 return Request.CreateResponse(HttpStatusCode.OK, "Deleted");
-=======
-
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
 
         [HttpPost]
         [Route("api/admin/service/create")]
@@ -179,14 +172,12 @@ namespace APL.Controllers
             {
                 AdminService.CreateService(data);
                 return Request.CreateResponse(HttpStatusCode.OK, "Created");
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-<<<<<<< HEAD
 
 
         [HttpGet]
@@ -355,7 +346,12 @@ namespace APL.Controllers
             {
                 var data = AdminService.DeleteWorker(id);
                 return Request.CreateResponse(HttpStatusCode.OK, "Deleted");
-=======
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
         [HttpPost]
         [Route("api/admin/service/update")]
         public HttpResponseMessage Update(ServiceDTO data)
@@ -364,7 +360,6 @@ namespace APL.Controllers
             {
                 AdminService.UpdateService(data);
                 return Request.CreateResponse(HttpStatusCode.OK, "Updated");
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
             }
             catch (Exception ex)
             {
@@ -377,11 +372,7 @@ namespace APL.Controllers
         {
             try
             {
-<<<<<<< HEAD
                 var data = AdminService.GetUserWithBookings();
-=======
-                var data = AdminService.GetUserWithBooking();
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -389,9 +380,7 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-<<<<<<< HEAD
 
-=======
         [HttpPost]
         [Route("api/admin/worker/create")]
         public HttpResponseMessage Create(WorkerDTO data)
@@ -406,6 +395,5 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
     }
 }

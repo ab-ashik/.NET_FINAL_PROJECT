@@ -14,11 +14,7 @@ namespace BLL.Services
     {
         //bookingDTO
         //admin can see user bookings with worker information and service.
-<<<<<<< HEAD
-     
-=======
-        
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
+
         public static List<BookingDTO> GetAllBooking()
         {
             var data = DataAccessFactory.BookingData().Read();
@@ -121,7 +117,6 @@ namespace BLL.Services
             DataAccessFactory.WorkerData().Create(mapped);
         }
 
-<<<<<<< HEAD
         public static void CreateCoupon(DiscountCuponDTO discountCupon)
         {
             var cfg = new MapperConfiguration(c =>
@@ -190,8 +185,7 @@ namespace BLL.Services
 
         //notificationDTO
         //CRUD
-=======
->>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
+
 
 
         public static List<NotificationDTO> GetAllNotifications()
