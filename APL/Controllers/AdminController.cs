@@ -99,5 +99,19 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+        [HttpPost]
+        [Route("api/admin/worker/create")]
+        public HttpResponseMessage Create(WorkerDTO data)
+        {
+            try
+            {
+                AdminService.CreateWorker(data);
+                return Request.CreateResponse(HttpStatusCode.OK, "Created");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

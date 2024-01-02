@@ -106,6 +106,16 @@ namespace BLL.Services
             return mapped;
 
         }
+        public static void CreateWorker(WorkerDTO worker)
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<WorkerDTO, Worker>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<Worker>(worker);
+            DataAccessFactory.WorkerData().Create(mapped);
+        }
 
 
         //paymentDTo
