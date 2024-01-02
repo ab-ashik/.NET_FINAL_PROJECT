@@ -85,5 +85,19 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+        [HttpGet]
+        [Route("api/admin/userbooking/all")]
+        public HttpResponseMessage GetUserWithBooking()
+        {
+            try
+            {
+                var data = AdminService.GetUserWithBooking();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }

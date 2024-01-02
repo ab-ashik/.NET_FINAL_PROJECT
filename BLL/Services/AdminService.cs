@@ -93,8 +93,20 @@ namespace BLL.Services
             DataAccessFactory.ServiceData().Update(data);
         }
 
-        //notificationDTO
-        //CRUD
+        public static List<UserBookingDTO> GetUserWithBooking()
+        {
+            var data = DataAccessFactory.UserData().Read();
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<User, UserBookingDTO>();
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<UserBookingDTO>>(data);
+            return mapped;
+
+        }
+
 
         //paymentDTo
         //paymentList (BookingDTO, PaymentDTO)
