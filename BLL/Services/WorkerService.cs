@@ -176,7 +176,11 @@ namespace BLL.Services
             var mapped = mapper.Map<List<ServiceHistoryDTO>>(data);
             return mapped;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
 
     }
 }

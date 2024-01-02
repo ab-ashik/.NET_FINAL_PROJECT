@@ -39,6 +39,14 @@ namespace DAL.Models
         public virtual Worker Worker { get; set; }
 
         public virtual ICollection<Payment> Payments { get; set; }
+<<<<<<< HEAD
+=======
+        public Booking()
+        {
+            Payments = new List<Payment>();
+        }
+
+>>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
 
     }
 }
