@@ -11,6 +11,7 @@ namespace BLL.DTOs
 {
     public class WorkerDTO
     {
+        //SSSS
         [Key]
         public int WorkerID { get; set; }
 
@@ -37,8 +38,13 @@ namespace BLL.DTOs
         [Required]
         public bool IsAvailable { get; set; }
 
+<<<<<<< HEAD
        // [Required]
       //  public List<string> AvailableDays { get; set; }
+=======
+        //[Required]
+        //public List<string> AvailableDays { get; set; }
+>>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
 
         [Required]
         public string AvailableStartTime { get; set; }

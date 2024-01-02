@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -35,6 +37,16 @@ namespace DAL.Models
         public virtual Service Service { get; set; }
 
         public virtual Worker Worker { get; set; }
+
+        public virtual ICollection<Payment> Payments { get; set; }
+<<<<<<< HEAD
+=======
+        public Booking()
+        {
+            Payments = new List<Payment>();
+        }
+
+>>>>>>> fc8be69951d1f3e08bcf522166893edf99eff76d
 
     }
 }
