@@ -31,10 +31,13 @@ namespace DAL.Models
 
         public virtual ICollection<Booking> Bookings { get; set; }
 
+        public virtual ICollection<Payment> Payment { get; set; }
+
         public User()
         {
             Reviews = new List<Review>();
             Bookings = new List<Booking>();
+            Payment = new List<Payment>();
         }
     }
 }
