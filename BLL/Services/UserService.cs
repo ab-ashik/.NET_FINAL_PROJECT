@@ -264,7 +264,6 @@ namespace BLL.Services
 
         //}
 
-        //check accepted booking from a user
         public static List<BookingDTO> GetAcceptedBookings(int userID)
         {
             var data = DataAccessFactory.BookingData().Read().Where(b => b.UserID == userID && b.Status == "Accepted");
@@ -278,7 +277,6 @@ namespace BLL.Services
 
         }
 
-        //get single accepted bookings from a user
         public static BookingDTO GetSingleAcceptedBooking(int userID, int bookingID)
         {
             var bookingData = DataAccessFactory.BookingData().Read(bookingID);
@@ -299,8 +297,7 @@ namespace BLL.Services
             return mappedBooking;
         }
 
-        ////pay for accepted booking from a user and change status to PAID and add payment details
-        //
+
         public static void PayAcceptedBooking(int userID, int bookingID, PaymentDTO payment)
         {
             var bookingData = DataAccessFactory.BookingData().Read(bookingID);
@@ -366,7 +363,6 @@ namespace BLL.Services
             return mappedBooking;
         }
 
-        //make review for a completed booking from a user
         public static void ReviewCompletedBooking(int userID, int bookingID, ReviewDTO review)
         {
             var bookingData = DataAccessFactory.BookingData().Read(bookingID);
@@ -496,7 +492,6 @@ namespace BLL.Services
         }
 
 
-        //show payment details from a user
         public static List<PaymentDTO> GetPayments(int userID)
         {
             var data = DataAccessFactory.PaymentData().Read().Where(p => p.UserID == userID);

@@ -46,7 +46,6 @@ namespace APL.Controllers
 
         [HttpGet]
         [Route("api/users/{id}")]
-        //dfkghdlfhglhdf
         public HttpResponseMessage Users(int id)
         {
             try
@@ -130,7 +129,6 @@ namespace APL.Controllers
 
         [HttpGet]
         [Route("api/users/{id}/services/{serviceID}/workers/{workerID}")]
-        //get specific worker
         public HttpResponseMessage Worker(int id, int serviceID, int workerID)
         {
             try
@@ -259,7 +257,6 @@ namespace APL.Controllers
             }
         }
 
-        //check accepted bookings from a user
         [HttpGet]
         [Route("api/users/{id}/bookings/accepted")]
         public HttpResponseMessage AcceptedBookings(int id)
@@ -276,7 +273,6 @@ namespace APL.Controllers
 
         }
 
-        //get single accepted bookings from a user
         [HttpGet]
         [Route("api/users/{id}/bookings/accepted/{bookingId}")]
         public HttpResponseMessage AcceptedBooking(int id, int bookingId)
@@ -298,8 +294,6 @@ namespace APL.Controllers
             }
         }
 
-        ////pay for accepted booking from a user and change status to PAID and add payment details
-        //
         [HttpPost]
         [Route("api/users/{id}/bookings/accepted/{bookingId}/pay")]
         public HttpResponseMessage PayAcceptedBooking(int id, int bookingId, PaymentDTO payment)
@@ -315,7 +309,6 @@ namespace APL.Controllers
             }
         }
 
-        //show completed bookings from a user
         [HttpGet]
         [Route("api/users/{id}/bookings/completed")]
         public HttpResponseMessage CompletedBookings(int id)
@@ -332,7 +325,6 @@ namespace APL.Controllers
 
         }
 
-        //get single completed bookings from a user
         [HttpGet]
         [Route("api/users/{id}/bookings/completed/{bookingId}")]
         public HttpResponseMessage CompletedBooking(int id, int bookingId)
@@ -370,7 +362,6 @@ namespace APL.Controllers
             }
         }
 
-        //show reviews for a user
         [HttpGet]
         [Route("api/users/{id}/reviews")]
         public HttpResponseMessage Reviews(int id)
