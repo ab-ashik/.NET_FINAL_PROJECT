@@ -8,24 +8,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BLL.Services
 {
     public class WorkerService
     {
-        //Get All Worker List
-        public static List<WorkerDTO> Get()
-        {
-            var data = DataAccessFactory.WorkerData().Read();
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<Worker, WorkerDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<List<WorkerDTO>>(data);
-            return mapped;
-
-        }
 
         //Get Single Worker
         public static WorkerDTO Get(int id)
@@ -41,112 +29,6 @@ namespace BLL.Services
 
         }
 
-        //Get single Worker all incoming Bookings
-        public static WorkerBookingDTO GetwithBookings(int id)
-        {
-            var data = DataAccessFactory.WorkerData().Read(id);
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<Worker, WorkerBookingDTO>();
-                c.CreateMap<Booking, BookingDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<WorkerBookingDTO>(data);
-            return mapped;
-        }
-
-        //Get single workers single booking
-        public static BookingDTO GetWorkerSingleBooking(int workerID, int bookingId)
-        {
-            var bookingData = DataAccessFactory.BookingData().Read(bookingId);
-
-            if (bookingData == null || bookingData.WorkerID != workerID)
-            {
-                return null;
-            }
-
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<Booking, BookingDTO>();
-            });
-
-            var mapper = new Mapper(cfg);
-            var mappedBooking = mapper.Map<BookingDTO>(bookingData);
-
-            return mappedBooking;
-        }
-
-        //Update a worker single booking 
-        public static bool UpdateWorkerSingleBooking(int workerID, int bookingId, BookingDTO updatedBooking)
-        {
-            var existingBooking = DataAccessFactory.BookingData().Read(bookingId);
-            if (existingBooking == null || existingBooking.WorkerID != workerID)
-            {
-                return false;
-            }
-            existingBooking.Status = updatedBooking.Status;
-            DataAccessFactory.BookingData().Update(existingBooking);
-            return true;
-        }
-
-        //public static bool UpdateWorkerSingleBooking(int workerID, int bookingId, BookingDTO updatedBooking)
-        //{
-        //    var existingBooking = DataAccessFactory.BookingData().Read(bookingId);
-
-        //    if (existingBooking == null || existingBooking.WorkerID != workerID)
-        //    {
-        //        return false;
-        //    }
-
-        //    if (updatedBooking.Status == "Accepted")
-        //    {
-        //        // If the status is "Accepted", move the booking to Service History and delete it from the Booking table
-
-        //        // Create a ServiceHistoryDTO object from the existing booking
-        //        var serviceHistory = new ServiceHistoryDTO
-        //        {
-        //            WorkerID = existingBooking.WorkerID,
-        //            UserID = existingBooking.UserID,
-        //            ServiceID = existingBooking.ServiceID,
-        //            BookingID = existingBooking.BookingID,
-        //            //PaymentID = GenerateRandomId(),
-        //            //ReviewID = GenerateRandomId(),
-        //            BookingDate = existingBooking.BookingDate,
-        //            DueDate = existingBooking.DueDate,
-        //            CompletionDate = DateTime.Now,
-        //        };
-
-        //        // Insert the service history record
-        //        DataAccessFactory.ServiceHistoryData().Create(serviceHistory);
-
-        //        // Delete the booking from the Booking table
-        //        DataAccessFactory.BookingData().Delete(existingBooking.BookingID);
-        //    }
-        //    else
-        //    {
-        //        // If the status is not "Accepted", update the existing booking's status
-        //        existingBooking.Status = updatedBooking.Status;
-        //        DataAccessFactory.BookingData().Update(existingBooking);
-        //    }
-
-        //    return true;
-        //}
-
-
-        //Worker Service History
-        public static WorkerServiceHistoryDTO GetWorkerServiceHistory(int id)
-        {
-            var data = DataAccessFactory.WorkerData().Read(id);
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<Worker, WorkerServiceHistoryDTO>();
-                c.CreateMap<ServiceHistory, ServiceHistoryDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<WorkerServiceHistoryDTO>(data);
-            return mapped;
-        }
-
         //Create Worker
         public static void Create(WorkerDTO worker)
         {
@@ -158,32 +40,143 @@ namespace BLL.Services
             var mapped = mapper.Map<Worker>(worker);
             DataAccessFactory.WorkerData().Create(mapped);
         }
-        
-        //update a single booking where status is accepted and move to service history
-        public static bool UpdateBookingStatus(int workerID, int bookingID, BookingDTO booking)
+        //Updata Worker
+        public static bool Update(int id, WorkerDTO updatedWorker)
         {
-            var existingBooking = DataAccessFactory.BookingData().Read(bookingID);
-
-            if (existingBooking == null || existingBooking.WorkerID != workerID)
+            var existingWorker = DataAccessFactory.WorkerData().Read(id);
+            if (existingWorker == null)
             {
                 return false;
             }
+            existingWorker.UserName = updatedWorker.UserName;
+            existingWorker.Email = updatedWorker.Email;
+            existingWorker.Password = updatedWorker.Password;
+            existingWorker.PhoneNumber = updatedWorker.PhoneNumber;
+            existingWorker.Specialization = updatedWorker.Specialization;
+            existingWorker.IsAvailable = updatedWorker.IsAvailable;
+            existingWorker.AvailableStartTime = updatedWorker.AvailableStartTime;
+            existingWorker.AvailableEndTime = updatedWorker.AvailableEndTime;
 
-            if (booking.Status == "Completed")
-            {
-                // If the status is "Accepted", fill Payment
-
-                
-            }
-            else
-            {
-                // If the status is not "Accepted", update the existing booking's status
-                existingBooking.Status = booking.Status;
-                DataAccessFactory.BookingData().Update(existingBooking);
-            }
-
+            DataAccessFactory.WorkerData().Update(existingWorker);
             return true;
         }
+
+        //ssdsds
+
+        //Get All Incoming Bookings
+        public static List<BookingDTO> GetIncomingBookings(int id)
+        {
+            var data = DataAccessFactory.BookingData().Read().Where(x => x.WorkerID == id && x.Status == "Pending");
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<BookingDTO>>(data);
+            return mapped;
+        }
+
+        //Single Incoming Bookings
+        public static BookingDTO GetIncomingBookings(int id, int bookingID)
+        {
+            var data = DataAccessFactory.BookingData().Read().Where(x => x.WorkerID == id && x.Status == "Pending" && x.BookingID == bookingID).FirstOrDefault();
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<BookingDTO>(data);
+            return mapped;
+        }
+
+        //Update Incoming Bookings
+        public static bool UpdateIncomingBookings(int id, int bookingID, BookingDTO updateBooking)
+        {
+            var existingBooking = DataAccessFactory.BookingData().Read(bookingID);
+            if (existingBooking == null)
+            {
+                return false;
+            }
+            existingBooking.Status = updateBooking.Status;
+            DataAccessFactory.BookingData().Update(existingBooking);
+            return true;
+        }
+
+        //All Accepted Bookings
+        public static List<BookingDTO> GetAcceptedBookings(int id)
+        {
+            var data = DataAccessFactory.BookingData().Read().Where(x => x.WorkerID == id && x.Status == "Accepted");
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<BookingDTO>>(data);
+            return mapped;
+        }
+        //Single Accepted Bookings
+        public static BookingDTO GetAcceptedBookings(int id, int bookingID)
+        {
+            var data = DataAccessFactory.BookingData().Read().Where(x => x.WorkerID == id && x.Status == "Accepted" && x.BookingID == bookingID).FirstOrDefault();
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<BookingDTO>(data);
+            return mapped;
+        }
+
+        //show a worker all bookings
+        public static WorkerBookingDTO GetwithBookings(int id)
+        {
+            var data = DataAccessFactory.WorkerData().Read(id);
+            var cfg = new MapperConfiguration(c => {
+                c.CreateMap<Worker, WorkerBookingDTO>();
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<WorkerBookingDTO>(data);
+            return mapped;
+
+        }
+
+        public static BookingPaymentDTO GetwithPayment(int bookingID)
+        {
+            var data = DataAccessFactory.BookingData().Read(bookingID);
+
+            if (data != null && data.Status == "Accepted")
+            {
+                var cfg = new MapperConfiguration(c =>
+                {
+                    c.CreateMap<Booking, BookingPaymentDTO>();
+                    c.CreateMap<Payment, PaymentDTO>();
+                });
+                var mapper = new Mapper(cfg);
+                var mapped = mapper.Map<BookingPaymentDTO>(data);
+                return mapped;
+            }
+
+            return null;
+        }
+
+
+
+
+
+        //Worker all service history
+        public static List<ServiceHistoryDTO> GetServiceHistory(int id)
+        {
+            var data = DataAccessFactory.ServiceHistoryData().Read().Where(x => x.WorkerID == id);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<ServiceHistory, ServiceHistoryDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<ServiceHistoryDTO>>(data);
+            return mapped;
+        }
+
 
     }
 }
