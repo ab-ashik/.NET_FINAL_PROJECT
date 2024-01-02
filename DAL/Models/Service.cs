@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
@@ -24,6 +25,12 @@ namespace DAL.Models
 
         [Required]
         public string PriceRange { get; set; }
+
+        public virtual ICollection<DiscountCupon> DiscountCupons { get; set; }
+
+        public Service() {
+            DiscountCupons = new List<DiscountCupon>();
+        }
 
         //  [ForeignKey("Worker")]
         //    public int WorkerID { get; set; }
