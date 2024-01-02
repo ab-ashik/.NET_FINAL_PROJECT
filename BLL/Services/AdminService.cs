@@ -205,7 +205,16 @@ namespace BLL.Services
         //ServiceHistory
         //List
 
-
+        public static List<ServiceHistoryDTO> GetAllServHistories()
+        {
+            var data = DataAccessFactory.ServiceHistoryData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<ServiceHistory, ServiceHistoryDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<ServiceHistoryDTO>>(data);
+            return ret;
+        }
 
         //userBookingDTO
         //List
@@ -213,7 +222,72 @@ namespace BLL.Services
         //UserDTO
         //List, Find
 
+        public static List<UserDTO> GetAllUsers()
+        {
+            var data = DataAccessFactory.UserData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<User, UserDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<UserDTO>>(data);
+            return ret;
+        }
+
+
+        public static UserDTO GetUser(int id)
+        {
+            var data = DataAccessFactory.UserData().Read(id);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<User, UserDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<UserDTO>(data);
+            return ret;
+        }
+
         //WorkerDTO
         //Create, Delete, List, Find,  
+
+        public static List<WorkerDTO> GetAllWorkers()
+        {
+            var data = DataAccessFactory.WorkerData().Read();
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Worker, WorkerDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<List<WorkerDTO>>(data);
+            return ret;
+        }
+
+
+        public static WorkerDTO GetWorker(int id)
+        {
+            var data = DataAccessFactory.WorkerData().Read(id);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Worker, WorkerDTO>();
+            });
+            var mapper = new Mapper(config);
+            var ret = mapper.Map<WorkerDTO>(data);
+            return ret;
+        }
+
+        public static bool DeleteWorker(int id)
+        {
+            return DataAccessFactory.WorkerData().Delete(id);
+        }
+
+        public static List<UserBookingDTO> GetUserWithBookings()
+        {
+            var data = DataAccessFactory.UserData().Read();
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<User, UserBookingDTO>();
+                c.CreateMap<Booking, BookingDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<UserBookingDTO>>(data);
+            return mapped;
+
+        }
     }
 }

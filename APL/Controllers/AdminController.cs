@@ -246,6 +246,106 @@ namespace APL.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
             }
         }
+        [HttpGet]
+        [Route("api/admin/service/history/all")]
+        public HttpResponseMessage GetAllServHist()
+        {
+            try
+            {
+                var data = AdminService.GetAllServHistories();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        [HttpGet]
+        [Route("api/admin/user/all")]
+        public HttpResponseMessage GetAllUser()
+        {
+            try
+            {
+                var data = AdminService.GetAllUsers();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        [HttpGet]
+        [Route("api/admin/user/{id}")]
+        public HttpResponseMessage GetOneUser(int id)
+        {
+            try
+            {
+                var data = AdminService.GetUser(id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        [HttpGet]
+        [Route("api/admin/worker/all")]
+        public HttpResponseMessage GetAllWorker()
+        {
+            try
+            {
+                var data = AdminService.GetAllWorkers();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        [HttpGet]
+        [Route("api/admin/worker/{id}")]
+        public HttpResponseMessage GetOneWorker(int id)
+        {
+            try
+            {
+                var data = AdminService.GetWorker(id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("api/admin/worker/delete/{id}")]
+        public HttpResponseMessage DeleteWrkr(int id)
+        {
+            try
+            {
+                var data = AdminService.DeleteWorker(id);
+                return Request.CreateResponse(HttpStatusCode.OK, "Deleted");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+        [HttpGet]
+        [Route("api/admin/userbooking/all")]
+        public HttpResponseMessage GetUserWithBooking()
+        {
+            try
+            {
+                var data = AdminService.GetUserWithBookings();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
 
     }
 }
