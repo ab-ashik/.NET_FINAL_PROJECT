@@ -11,6 +11,7 @@ namespace BLL.DTOs
 {
     public class WorkerDTO
     {
+        //SSSS
         [Key]
         public int WorkerID { get; set; }
 
