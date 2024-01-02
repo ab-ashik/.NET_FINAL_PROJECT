@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="DTOs\ServiceCouponDTO.cs" />
+=======
     <Compile Include="DTOs\BookingPaymentDTO.cs" />
+>>>>>>> 0df696cb3bc801d397c3a6ec355d5dbd241d7dfb
     <Compile Include="DTOs\UserBookingDTO.cs" />
     <Compile Include="DTOs\UserReviewDTO.cs" />
     <Compile Include="DTOs\WorkerBookingDTO.cs" />
